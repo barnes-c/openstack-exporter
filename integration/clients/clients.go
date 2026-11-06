@@ -406,3 +406,10 @@ func NewOrchestrationV1Client() (*gophercloud.ServiceClient, error) {
 func NewPlacementV1Client() (*gophercloud.ServiceClient, error) {
 	return newServiceClient(openstack.NewPlacementV1)
 }
+
+// NewReservationV1Client returns a *ServiceClient for making calls
+// to the OpenStack Reservation (Blazar) API. An error will be returned
+// if authentication or client creation was not possible.
+func NewReservationV1Client() (*gophercloud.ServiceClient, error) {
+	return newServiceClient(openstack.NewReservationV1)
+}

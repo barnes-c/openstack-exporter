@@ -1,0 +1,21 @@
+{
+  "allocations": [
+    {
+      "resource_id": "18",
+      "reservations": [
+        {
+          "id": "c04d56e0-6b31-40b2-a57e-7283958100bd",
+          "lease_id": "98c3544d-0afe-4251-8556-700c847a127f",
+          "start_date": "2026-11-06T09:01:00.000000",
+          "end_date": "2099-01-01T00:00:00.000000"
+        },
+        {
+          "id": "e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",
+          "lease_id": "d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",
+          "start_date": "2099-02-01T00:00:00.000000",
+          "end_date": "2099-03-01T00:00:00.000000"
+        }
+      ]
+    }
+  ]
+}
