@@ -1,0 +1,216 @@
+{
+  "leases": [
+    {
+      "id": "98c3544d-0afe-4251-8556-700c847a127f",
+      "name": "host_lease",
+      "start_date": "2026-11-06T09:01:00.000000",
+      "end_date": "2099-01-01T00:00:00.000000",
+      "status": "ACTIVE",
+      "degraded": false,
+      "user_id": "0a75eb6437d147a3bb7edf7aa4a18b79",
+      "project_id": "a2b6c11209974d6c916a190697d95f5f",
+      "trust_id": "46648d282e634131984e9277bbdd1720",
+      "created_at": "2026-11-06 09:00:00",
+      "updated_at": null,
+      "reservations": [
+        {
+          "id": "c04d56e0-6b31-40b2-a57e-7283958100bd",
+          "lease_id": "98c3544d-0afe-4251-8556-700c847a127f",
+          "status": "active",
+          "missing_resources": false,
+          "resources_changed": true,
+          "resource_id": "91253650-cc34-4c4f-bbe8-c943aa7d0c9b",
+          "resource_type": "physical:host",
+          "min": 1,
+          "max": 2,
+          "hypervisor_properties": "",
+          "resource_properties": "[\"==\", \"$gpu\", \"a100\"]",
+          "before_end": "default",
+          "created_at": "2026-11-06 09:00:00",
+          "updated_at": null
+        }
+      ],
+      "events": [
+        {
+          "id": "98c3544dstart_lease",
+          "lease_id": "98c3544d-0afe-4251-8556-700c847a127f",
+          "status": "DONE",
+          "event_type": "start_lease",
+          "time": "2026-11-06T09:01:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        },
+        {
+          "id": "98c3544dbefore_end_lease",
+          "lease_id": "98c3544d-0afe-4251-8556-700c847a127f",
+          "status": "UNDONE",
+          "event_type": "before_end_lease",
+          "time": "2098-12-31T00:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        },
+        {
+          "id": "98c3544dend_lease",
+          "lease_id": "98c3544d-0afe-4251-8556-700c847a127f",
+          "status": "UNDONE",
+          "event_type": "end_lease",
+          "time": "2099-01-01T00:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        }
+      ]
+    },
+    {
+      "id": "7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+      "name": "instance_lease",
+      "start_date": "2099-02-01T00:00:00.000000",
+      "end_date": "2099-03-01T00:00:00.000000",
+      "status": "PENDING",
+      "degraded": true,
+      "user_id": "0a75eb6437d147a3bb7edf7aa4a18b79",
+      "project_id": "a2b6c11209974d6c916a190697d95f5f",
+      "trust_id": "46648d282e634131984e9277bbdd1720",
+      "created_at": "2026-11-06 09:00:00",
+      "updated_at": null,
+      "reservations": [
+        {
+          "id": "5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",
+          "lease_id": "7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+          "status": "pending",
+          "missing_resources": true,
+          "resources_changed": false,
+          "resource_id": "94a8b5c4-17d9-4724-82d9-521ffa63f747",
+          "resource_type": "virtual:instance",
+          "amount": 2,
+          "vcpus": 4,
+          "memory_mb": 8192,
+          "disk_gb": 40,
+          "affinity": null,
+          "resource_properties": "",
+          "flavor_id": "5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",
+          "server_group_id": null,
+          "aggregate_id": 119,
+          "created_at": "2026-11-06 09:00:00",
+          "updated_at": null
+        }
+      ],
+      "events": [
+        {
+          "id": "7a9b1c2dstart_lease",
+          "lease_id": "7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+          "status": "UNDONE",
+          "event_type": "start_lease",
+          "time": "2099-02-01T00:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        },
+        {
+          "id": "7a9b1c2dend_lease",
+          "lease_id": "7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+          "status": "UNDONE",
+          "event_type": "end_lease",
+          "time": "2099-03-01T00:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        }
+      ]
+    },
+    {
+      "id": "d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",
+      "name": "future_host_lease",
+      "start_date": "2099-02-01T00:00:00.000000",
+      "end_date": "2099-03-01T00:00:00.000000",
+      "status": "PENDING",
+      "degraded": false,
+      "user_id": "0a75eb6437d147a3bb7edf7aa4a18b79",
+      "project_id": "a2b6c11209974d6c916a190697d95f5f",
+      "trust_id": "46648d282e634131984e9277bbdd1720",
+      "created_at": "2026-11-06 09:00:00",
+      "updated_at": null,
+      "reservations": [
+        {
+          "id": "e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",
+          "lease_id": "d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",
+          "status": "pending",
+          "missing_resources": false,
+          "resources_changed": false,
+          "resource_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+          "resource_type": "physical:host",
+          "min": 1,
+          "max": 2,
+          "hypervisor_properties": "",
+          "resource_properties": "[\"==\", \"$gpu\", \"a100\"]",
+          "before_end": "default",
+          "created_at": "2026-11-06 09:00:00",
+          "updated_at": null
+        }
+      ],
+      "events": [
+        {
+          "id": "f1e2d3c4start",
+          "lease_id": "d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",
+          "status": "UNDONE",
+          "event_type": "start_lease",
+          "time": "2099-02-01T00:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        },
+        {
+          "id": "f1e2d3c4end",
+          "lease_id": "d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",
+          "status": "UNDONE",
+          "event_type": "end_lease",
+          "time": "2099-03-01T00:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        }
+      ]
+    },
+    {
+      "id": "b179d3b5-6014-44a7-969b-0d333a969631",
+      "name": "my_lease",
+      "start_date": "2026-11-06T09:01:00.000000",
+      "end_date": "2026-11-06T10:00:00.000000",
+      "status": "TERMINATED",
+      "degraded": false,
+      "user_id": "0a75eb6437d147a3bb7edf7aa4a18b79",
+      "project_id": "a2b6c11209974d6c916a190697d95f5f",
+      "trust_id": "46648d282e634131984e9277bbdd1720",
+      "created_at": "2026-11-06 09:00:00",
+      "updated_at": null,
+      "reservations": [
+        {
+          "id": "39355156-7d5a-499a-87f8-35331a17b08e",
+          "lease_id": "b179d3b5-6014-44a7-969b-0d333a969631",
+          "status": "deleted",
+          "missing_resources": false,
+          "resources_changed": false,
+          "resource_id": "14a8b5c4-17d9-4724-82d9-521ffa63f747",
+          "resource_type": "virtual:instance",
+          "amount": 1,
+          "vcpus": 2,
+          "memory_mb": 3750,
+          "disk_gb": 20,
+          "affinity": null,
+          "resource_properties": "",
+          "flavor_id": "39355156-7d5a-499a-87f8-35331a17b08e",
+          "server_group_id": null,
+          "aggregate_id": 118,
+          "created_at": "2026-11-06 09:00:00",
+          "updated_at": null
+        }
+      ],
+      "events": [
+        {
+          "id": "b179d3b5end_lease",
+          "lease_id": "b179d3b5-6014-44a7-969b-0d333a969631",
+          "status": "DONE",
+          "event_type": "end_lease",
+          "time": "2026-11-06T10:00:00.000000",
+          "created_at": "2026-11-06 09:00:01",
+          "updated_at": null
+        }
+      ]
+    }
+  ]
+}

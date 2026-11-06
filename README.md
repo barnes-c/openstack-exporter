@@ -156,6 +156,8 @@ Flags:
                                  Disable the placement service exporter in strict mode
       --[no-]disable-service.sharev2
                                  Disable the sharev2 service exporter in strict mode
+      --[no-]disable-service.reservation
+                                 Disable the reservation service exporter in strict mode
       --[no-]web.systemd-socket  Use systemd socket activation listeners instead of port listeners (Linux only).
       --web.listen-address=:9180 ...
                                  Addresses on which to expose metrics and web interface. Repeatable for multiple addresses.
@@ -373,6 +375,32 @@ openstack_cinder_volume_status | 1.4 | 1.5 | deprecated in favor of openstack_ci
 
 Name     | Sample Labels                                                                                                                                                                                                                                                                                                         | Sample Value | Description
 ---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|------------
+openstack_blazar_host_allocated| availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"|1.0 or 0 (bool)| Host is held by a reservation right now (1=allocated, 0=free)
+openstack_blazar_host_allocations| availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"|2.0 (float)| Number of current and future reservations holding the host
+openstack_blazar_host_local_gb| availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"|793.0 (float)| Local disk of a freepool host in GB
+openstack_blazar_host_memory_mb| availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"|128297.0 (float)| Memory of a freepool host in MB
+openstack_blazar_host_property| hostname="compute-1.example.com",id="18",property="gpu",value="a100"|1.0 (float)| Extra capability set on a freepool host
+openstack_blazar_host_reservable| availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"|1.0 or 0 (bool)| Host can be allocated to new reservations (1=reservable, 0=not)
+openstack_blazar_host_vcpus| availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"|20.0 (float)| Number of vCPUs of a freepool host
+openstack_blazar_lease_degraded| id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f"|1.0 or 0 (bool)| Lease lost some of its reserved resources (1=degraded, 0=not)
+openstack_blazar_lease_end_date| id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f"|4076006400 (float)| Lease end date as a Unix timestamp
+openstack_blazar_lease_event_time| event_type="before_end_lease",lease_id="98c3544d-0afe-4251-8556-700c847a127f",status="UNDONE"|4070822400 (float)| Scheduled time of a lease event as a Unix timestamp
+openstack_blazar_lease_start_date| id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f"|4073587200 (float)| Lease start date as a Unix timestamp
+openstack_blazar_lease_status| id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f",status="PENDING",user_id="0a75eb6437d147a3bb7edf7aa4a18b79"|1.0 (float)| Lease status (terminated leases are not exported)
+openstack_blazar_lease_status_counter| status="ACTIVE"|1.0 (float)| Lease status counter, including terminated leases
+openstack_blazar_reservation_allocated_hosts| id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"|1.0 (float)| Number of hosts allocated to a host reservation
+openstack_blazar_reservation_amount| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"|2.0 (float)| Number of instances reserved
+openstack_blazar_reservation_disk_gb| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"|40.0 (float)| Disk per reserved instance in GB
+openstack_blazar_reservation_max_hosts| id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"|2.0 (float)| Maximum number of hosts of a host reservation
+openstack_blazar_reservation_memory_mb| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"|8192.0 (float)| Memory per reserved instance in MB
+openstack_blazar_reservation_min_hosts| id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"|1.0 (float)| Minimum number of hosts of a host reservation
+openstack_blazar_reservation_missing_resources| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"|1.0 or 0 (bool)| Blazar could not reserve every requested resource (1=missing, 0=not)
+openstack_blazar_reservation_resources_changed| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"|1.0 or 0 (bool)| Blazar replaced some reserved resources (1=changed, 0=not)
+openstack_blazar_reservation_status| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance",status="pending"|0.0 (float)| Reservation status
+openstack_blazar_reservation_vcpus| id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"|4.0 (float)| vCPUs per reserved instance
+openstack_blazar_total_hosts| region="RegionOne"|2.0 (float)| Total number of hosts in the freepool
+openstack_blazar_total_leases| region="RegionOne"|4.0 (float)| Total number of leases, including terminated ones
+openstack_blazar_up| region="RegionOne"|1.0 (float)| Service status (1=up, 0=down)
 openstack_cinder_agent_state| adminState="enabled",disabledReason="",hostname="devstack@lvmdriver-1",service="cinder-volume",uuid="3649e0f6-de80-ab6e-4f1c-351042d2f7fe",zone="nova"                                                                                                                                                                      |1.0 or 0 (bool)| Agent state (1=up, 0=down)
 openstack_cinder_backup_gb| id="2ef47aee-8844-490c-804d-2a8efe561c65",incremental="false",name="test-volume-backup",snapshot_id="",status="available",tenant_id="bab7d5c60cd041a0a36f7c4b6e1dd978",volume_id="173f7b48-c4c1-4e70-9acc-086b39073506"|1.0 (float)| Backup size in GB
 openstack_cinder_backups| region="RegionOne"|4.0 (float)| Total number of backups
@@ -602,9 +630,148 @@ Index | Status
 18 |soft_deleting
 19 |inactive
 
+## Blazar Lease Status Description
+
+Index | Status
+------|-------
+0 |CREATING
+1 |PENDING
+2 |STARTING
+3 |ACTIVE
+4 |UPDATING
+5 |TERMINATING
+6 |TERMINATED
+7 |DELETING
+8 |ERROR
+
+## Blazar Reservation Status Description
+
+Index | Status
+------|-------
+0 |pending
+1 |active
+2 |deleted
+3 |error
+
 ## Example metrics
 
 ```text
+# HELP openstack_blazar_host_allocated host_allocated
+# TYPE openstack_blazar_host_allocated gauge
+openstack_blazar_host_allocated{availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"} 1
+openstack_blazar_host_allocated{availability_zone="nova",hostname="compute-2.example.com",hypervisor_type="QEMU",id="19"} 0
+# HELP openstack_blazar_host_allocations host_allocations
+# TYPE openstack_blazar_host_allocations gauge
+openstack_blazar_host_allocations{availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"} 2
+openstack_blazar_host_allocations{availability_zone="nova",hostname="compute-2.example.com",hypervisor_type="QEMU",id="19"} 0
+# HELP openstack_blazar_host_local_gb host_local_gb
+# TYPE openstack_blazar_host_local_gb gauge
+openstack_blazar_host_local_gb{availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"} 793
+openstack_blazar_host_local_gb{availability_zone="nova",hostname="compute-2.example.com",hypervisor_type="QEMU",id="19"} 793
+# HELP openstack_blazar_host_memory_mb host_memory_mb
+# TYPE openstack_blazar_host_memory_mb gauge
+openstack_blazar_host_memory_mb{availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"} 128297
+openstack_blazar_host_memory_mb{availability_zone="nova",hostname="compute-2.example.com",hypervisor_type="QEMU",id="19"} 128297
+# HELP openstack_blazar_host_property host_property
+# TYPE openstack_blazar_host_property gauge
+openstack_blazar_host_property{hostname="compute-1.example.com",id="18",property="gpu",value="a100"} 1
+openstack_blazar_host_property{hostname="compute-1.example.com",id="18",property="rack",value="b12"} 1
+# HELP openstack_blazar_host_reservable host_reservable
+# TYPE openstack_blazar_host_reservable gauge
+openstack_blazar_host_reservable{availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"} 1
+openstack_blazar_host_reservable{availability_zone="nova",hostname="compute-2.example.com",hypervisor_type="QEMU",id="19"} 0
+# HELP openstack_blazar_host_vcpus host_vcpus
+# TYPE openstack_blazar_host_vcpus gauge
+openstack_blazar_host_vcpus{availability_zone="nova",hostname="compute-1.example.com",hypervisor_type="QEMU",id="18"} 20
+openstack_blazar_host_vcpus{availability_zone="nova",hostname="compute-2.example.com",hypervisor_type="QEMU",id="19"} 20
+# HELP openstack_blazar_lease_degraded lease_degraded
+# TYPE openstack_blazar_lease_degraded gauge
+openstack_blazar_lease_degraded{id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 1
+openstack_blazar_lease_degraded{id="98c3544d-0afe-4251-8556-700c847a127f",name="host_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 0
+openstack_blazar_lease_degraded{id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",name="future_host_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 0
+# HELP openstack_blazar_lease_end_date lease_end_date
+# TYPE openstack_blazar_lease_end_date gauge
+openstack_blazar_lease_end_date{id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 4.0760064e+09
+openstack_blazar_lease_end_date{id="98c3544d-0afe-4251-8556-700c847a127f",name="host_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 4.0709088e+09
+openstack_blazar_lease_end_date{id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",name="future_host_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 4.0760064e+09
+# HELP openstack_blazar_lease_event_time lease_event_time
+# TYPE openstack_blazar_lease_event_time gauge
+openstack_blazar_lease_event_time{event_type="before_end_lease",lease_id="98c3544d-0afe-4251-8556-700c847a127f",status="UNDONE"} 4.0708224e+09
+openstack_blazar_lease_event_time{event_type="end_lease",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",status="UNDONE"} 4.0760064e+09
+openstack_blazar_lease_event_time{event_type="end_lease",lease_id="98c3544d-0afe-4251-8556-700c847a127f",status="UNDONE"} 4.0709088e+09
+openstack_blazar_lease_event_time{event_type="end_lease",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",status="UNDONE"} 4.0760064e+09
+openstack_blazar_lease_event_time{event_type="start_lease",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",status="UNDONE"} 4.0735872e+09
+openstack_blazar_lease_event_time{event_type="start_lease",lease_id="98c3544d-0afe-4251-8556-700c847a127f",status="DONE"} 1.79395566e+09
+openstack_blazar_lease_event_time{event_type="start_lease",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",status="UNDONE"} 4.0735872e+09
+# HELP openstack_blazar_lease_start_date lease_start_date
+# TYPE openstack_blazar_lease_start_date gauge
+openstack_blazar_lease_start_date{id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 4.0735872e+09
+openstack_blazar_lease_start_date{id="98c3544d-0afe-4251-8556-700c847a127f",name="host_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 1.79395566e+09
+openstack_blazar_lease_start_date{id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",name="future_host_lease",project_id="a2b6c11209974d6c916a190697d95f5f"} 4.0735872e+09
+# HELP openstack_blazar_lease_status lease_status
+# TYPE openstack_blazar_lease_status gauge
+openstack_blazar_lease_status{id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",name="instance_lease",project_id="a2b6c11209974d6c916a190697d95f5f",status="PENDING",user_id="0a75eb6437d147a3bb7edf7aa4a18b79"} 1
+openstack_blazar_lease_status{id="98c3544d-0afe-4251-8556-700c847a127f",name="host_lease",project_id="a2b6c11209974d6c916a190697d95f5f",status="ACTIVE",user_id="0a75eb6437d147a3bb7edf7aa4a18b79"} 3
+openstack_blazar_lease_status{id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",name="future_host_lease",project_id="a2b6c11209974d6c916a190697d95f5f",status="PENDING",user_id="0a75eb6437d147a3bb7edf7aa4a18b79"} 1
+# HELP openstack_blazar_lease_status_counter lease_status_counter
+# TYPE openstack_blazar_lease_status_counter gauge
+openstack_blazar_lease_status_counter{status="ACTIVE"} 1
+openstack_blazar_lease_status_counter{status="CREATING"} 0
+openstack_blazar_lease_status_counter{status="DELETING"} 0
+openstack_blazar_lease_status_counter{status="ERROR"} 0
+openstack_blazar_lease_status_counter{status="PENDING"} 2
+openstack_blazar_lease_status_counter{status="STARTING"} 0
+openstack_blazar_lease_status_counter{status="TERMINATED"} 1
+openstack_blazar_lease_status_counter{status="TERMINATING"} 0
+openstack_blazar_lease_status_counter{status="UPDATING"} 0
+# HELP openstack_blazar_reservation_allocated_hosts reservation_allocated_hosts
+# TYPE openstack_blazar_reservation_allocated_hosts gauge
+openstack_blazar_reservation_allocated_hosts{id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"} 1
+openstack_blazar_reservation_allocated_hosts{id="e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",resource_type="physical:host"} 1
+# HELP openstack_blazar_reservation_amount reservation_amount
+# TYPE openstack_blazar_reservation_amount gauge
+openstack_blazar_reservation_amount{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"} 2
+# HELP openstack_blazar_reservation_disk_gb reservation_disk_gb
+# TYPE openstack_blazar_reservation_disk_gb gauge
+openstack_blazar_reservation_disk_gb{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"} 40
+# HELP openstack_blazar_reservation_max_hosts reservation_max_hosts
+# TYPE openstack_blazar_reservation_max_hosts gauge
+openstack_blazar_reservation_max_hosts{id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"} 2
+openstack_blazar_reservation_max_hosts{id="e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",resource_type="physical:host"} 2
+# HELP openstack_blazar_reservation_memory_mb reservation_memory_mb
+# TYPE openstack_blazar_reservation_memory_mb gauge
+openstack_blazar_reservation_memory_mb{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"} 8192
+# HELP openstack_blazar_reservation_min_hosts reservation_min_hosts
+# TYPE openstack_blazar_reservation_min_hosts gauge
+openstack_blazar_reservation_min_hosts{id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"} 1
+openstack_blazar_reservation_min_hosts{id="e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",resource_type="physical:host"} 1
+# HELP openstack_blazar_reservation_missing_resources reservation_missing_resources
+# TYPE openstack_blazar_reservation_missing_resources gauge
+openstack_blazar_reservation_missing_resources{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"} 1
+openstack_blazar_reservation_missing_resources{id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"} 0
+openstack_blazar_reservation_missing_resources{id="e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",resource_type="physical:host"} 0
+# HELP openstack_blazar_reservation_resources_changed reservation_resources_changed
+# TYPE openstack_blazar_reservation_resources_changed gauge
+openstack_blazar_reservation_resources_changed{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"} 0
+openstack_blazar_reservation_resources_changed{id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host"} 1
+openstack_blazar_reservation_resources_changed{id="e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",resource_type="physical:host"} 0
+# HELP openstack_blazar_reservation_status reservation_status
+# TYPE openstack_blazar_reservation_status gauge
+openstack_blazar_reservation_status{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance",status="pending"} 0
+openstack_blazar_reservation_status{id="c04d56e0-6b31-40b2-a57e-7283958100bd",lease_id="98c3544d-0afe-4251-8556-700c847a127f",resource_type="physical:host",status="active"} 1
+openstack_blazar_reservation_status{id="e2a7c9d1-5b3f-4e8a-9c6d-1f2a3b4c5d6e",lease_id="d3b8e1f2-4a5c-4b6d-9e7f-8a9b0c1d2e3f",resource_type="physical:host",status="pending"} 0
+# HELP openstack_blazar_reservation_vcpus reservation_vcpus
+# TYPE openstack_blazar_reservation_vcpus gauge
+openstack_blazar_reservation_vcpus{id="5e1f3c0a-8f2d-4b6e-9a7c-3d4e5f6a7b8c",lease_id="7a9b1c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",resource_type="virtual:instance"} 4
+# HELP openstack_blazar_total_hosts total_hosts
+# TYPE openstack_blazar_total_hosts gauge
+openstack_blazar_total_hosts 2
+# HELP openstack_blazar_total_leases total_leases
+# TYPE openstack_blazar_total_leases gauge
+openstack_blazar_total_leases 4
+# HELP openstack_blazar_up up
+# TYPE openstack_blazar_up gauge
+openstack_blazar_up 1
 # HELP openstack_cinder_agent_state agent_state
 # TYPE openstack_cinder_agent_state counter
 openstack_cinder_agent_state{adminState="enabled",hostname="compute-node-01",region="Region",service="cinder-backup",zone="nova"} 1.0
